@@ -7,7 +7,10 @@
     <FrameLayout
         android:id="@+id/camera_preview"
         android:layout_width="0dip"
-        android:layout_height="fill_parent"
+        android:layout_height="200dip"
+        android:paddingLeft="200dip"
+        android:paddingTop="10dip"
+        android:paddingRight="10dip"
         android:layout_weight="1" />
 
 <!--     <Button -->
