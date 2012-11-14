@@ -29,6 +29,12 @@ public class CameraActivity extends Activity {
         FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
         preview.addView(mPreview);
     }
+    
+    @Override
+    protected void onPause() {
+        super.onPause();
+        releaseCamera();              // release the camera immediately on pause event
+    }
 
 	/** Check if this device has a camera */
 	private boolean checkCameraHardware(Context context) {
@@ -52,5 +58,12 @@ public class CameraActivity extends Activity {
 		}
 		return c; // returns null if camera is unavailable
 	}
+	
+	private void releaseCamera(){
+        if (mCamera != null){
+            mCamera.release();        // release the camera for other applications
+            mCamera = null;
+        }
+    }
 
 }
