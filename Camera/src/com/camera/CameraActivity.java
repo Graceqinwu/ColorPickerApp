@@ -7,36 +7,47 @@ import android.hardware.Camera;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
 public class CameraActivity extends Activity {
 
-    private Camera mCamera;
-    private CameraView mPreview;
+	private Camera mCamera;
+	private CameraView mPreview;
+	
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_camera_surface_view);
-        
-        //checkCameraHardware(null);
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.activity_camera_surface_view);
+		
 
-        // Create an instance of Camera
-        mCamera = getCameraInstance();
+		// checkCameraHardware(null);
 
-        // Create our Preview view and set it as the content of our activity.
-        mPreview = new CameraView(this, mCamera);
-        FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
-        preview.addView(mPreview);
-    }
-    
-    @Override
-    protected void onPause() {
-        super.onPause();
-        releaseCamera();              // release the camera immediately on pause event
-    }
+		// Create an instance of Camera
+		mCamera = getCameraInstance();
+
+		// Create our Preview view and set it as the content of our activity.
+		mPreview = new CameraView(this, mCamera);
+		RelativeLayout main = (RelativeLayout) findViewById(R.id.main_view);
+		
+		FrameLayout preview = (FrameLayout) findViewById(R.id.camera_preview);
+		FrameLayout row1 = (FrameLayout) findViewById(R.id.row1);
+		int mWidth = 720;
+		int mHeight = 1280;
+		preview.addView(mPreview);
+		row1.addView(new ColorBars(this, mWidth, mHeight, 0xFFFF0000, 0xFFAA0000, 0xAAFF0000, 0xFFFF0000));
+		
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		releaseCamera(); // release the camera immediately on pause event
+	}
 
 	/** Check if this device has a camera */
+	@SuppressWarnings("unused")
 	private boolean checkCameraHardware(Context context) {
 		if (context.getPackageManager().hasSystemFeature(
 				PackageManager.FEATURE_CAMERA)) {
@@ -58,12 +69,12 @@ public class CameraActivity extends Activity {
 		}
 		return c; // returns null if camera is unavailable
 	}
-	
-	private void releaseCamera(){
-        if (mCamera != null){
-            mCamera.release();        // release the camera for other applications
-            mCamera = null;
-        }
-    }
+
+	private void releaseCamera() {
+		if (mCamera != null) {
+			mCamera.release(); // release the camera for other applications
+			mCamera = null;
+		}
+	}
 
 }
