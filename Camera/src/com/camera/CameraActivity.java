@@ -36,7 +36,7 @@ public class CameraActivity extends Activity {
 		int mWidth = 720;
 		int mHeight = 1280;
 		preview.addView(mPreview);
-		row1.addView(new ColorBars(this, mWidth, mHeight, 0xFFFF0000, 0xFFAA0000, 0xAAFF0000, 0xFFFF0000));
+		row1.addView(new ColorBars(this, mWidth, mHeight, 0xFF999999, 0xFFAAFFFF, 0xFFFF0000, 0xFFA8FF00));
 		
 	}
 
